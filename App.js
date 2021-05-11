@@ -25,6 +25,8 @@ import Msj2 from './screens/Msj2';
 import Descrp from './screens/Descrp';
 import Feed from './screens/Feed';
 import Carrera from './screens/Carrera';
+import Foro from './screens/foro';
+import Foro2 from './screens/Foro2';
 
 function Mystack(){
   return(
@@ -48,6 +50,8 @@ function Mystack(){
       <Stack.Screen name = "Carrera" component = {Carrera} options = {{title: ''}}/>
       <Stack.Screen name = "Feed" component = {Feed} options = {{title:''}}/> 
       <Stack.Screen name = "Conecta" component = {Conecta} options = {{title: ''}}/>
+      <Stack.Screen name = "Foro" component = {Foro} options={{title:''}}/>
+      <Stack.Screen name = "Foro2" component = {Foro2} options={{title:''}}/>
     </Stack.Navigator>
   )
 }
