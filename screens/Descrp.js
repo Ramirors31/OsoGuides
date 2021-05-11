@@ -12,7 +12,7 @@ const Descrp = (props) =>{
     const userId = firebase.userAuth.currentUser.uid;
     const profilePicture = firebase.userAuth.currentUser.photoURL;
 
-    function addDescrp(){
+    const addDescrp = () => {
         newUser.descripcion = descripcion;
         console.log(newUser);
         console.log(userId);
@@ -20,7 +20,6 @@ const Descrp = (props) =>{
             name: newUser.namep,
             email: newUser.email,
             phone: newUser.phone,
-            gender: newUser.gender,
             birthday: newUser.birthday,
             mode: newUser.mode,
             description: newUser.descripcion,
@@ -31,6 +30,9 @@ const Descrp = (props) =>{
         firebase.db.collection('usuarios')
             .doc(userId)
             .set(usuario)
+
+        console.log('guardado en la bd')
+            
     }
 
     return(

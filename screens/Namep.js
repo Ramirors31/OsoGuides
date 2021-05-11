@@ -33,7 +33,7 @@ const Namep = (props) =>{
                     <Text style={styles.txtinf}>Asi aparecera en OsoGuides y no podras cambiarlo</Text>
                 </View>
                 <View>
-                    <TouchableOpacity style={styles.btn} onPress={() => props.navigation.navigate("Sex")}
+                    <TouchableOpacity style={styles.btn} onPress={() => props.navigation.navigate("Carrera")}
                     onPressOut = {addNamep}>
                         <Text style={styles.btntxt}>Continuar</Text>
                     </TouchableOpacity>

@@ -13,7 +13,7 @@ const Auth = (props) =>{
         .then((userCredential) => {
             // Signed in
             var user = userCredential.user;
-            props.navigation.navigate('MyProfile');
+            props.navigation.navigate('Feed');
             // ...
           })
           .catch((error) => {

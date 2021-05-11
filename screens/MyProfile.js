@@ -19,6 +19,8 @@ export default function MyProfile(props) {
    const profilePicture = firebase.userAuth.currentUser.photoURL;
    /*REFERENCIA A LA BASE DE DATOS*/ 
    const userRef = firebase.db.collection("usuarios")
+   /*CARRERA GUARDADA EN PERFIL DE FIREBASE*/
+   const [carreer,setCarreer] = useState('');
 
    /*MANEJO DEL CAMBIO DE DESCRIPCION*/
    const handleChange = (value) => {
@@ -43,9 +45,11 @@ export default function MyProfile(props) {
            
            if(documentSnapshot.exists){
                const descripcion = documentSnapshot.data().description;
-               const namep = documentSnapshot.data().name
+               const namep = documentSnapshot.data().name;
+               const carrera = documentSnapshot.data().carreer;
                setUserName(namep)
                setUserDesc(descripcion)
+               setCarreer(carrera)
            }
        })
    }
@@ -75,7 +79,7 @@ export default function MyProfile(props) {
                 <Text style= {styles.userName}>{userName}.</Text>
             </View>
             <View>
-                <Text style = {styles.informationText}>Ing. En Tecnología de Software</Text>
+                <Text style = {styles.informationText}>{carreer}</Text>
             </View>
             <View style = {styles.picturesContainer}>
                {/* <Image style = {styles.userImages} source = {require('../Images/mifoto1.jpg')}/>

@@ -13,7 +13,6 @@ import Logs from './screens/Logs';
 import Logs2 from './screens/Logs2';
 import Namep from './screens/Namep';
 import DateNac from './screens/DateNac';
-import Sex from './screens/Sex';
 import FotoIn from './screens/FotoIn';
 import Modo from './screens/Modo';
 import Auth from './screens/Auth';
@@ -30,10 +29,6 @@ import Carrera from './screens/Carrera';
 function Mystack(){
   return(
     <Stack.Navigator>
-    
-      
-     
-      {/*
       <Stack.Screen name="Home" component={Home} options={{title:''}}/>
       <Stack.Screen name  = "Descrp" component = {Descrp} options = {{title:''}}/>
       <Stack.Screen name="SignIn" component={SignIn} options={{title:''}}/>
@@ -44,17 +39,15 @@ function Mystack(){
       <Stack.Screen name="Logs2" component={Logs2} options={{title:''}}/>
       <Stack.Screen name="Namep" component={Namep} options={{title:''}}/>
       <Stack.Screen name="DateNac" component={DateNac} options={{title:''}}/>
-      <Stack.Screen name="Sex" component={Sex} options={{title:''}}/>
       <Stack.Screen name="FotoIn" component={FotoIn} options={{title:''}}/>
       <Stack.Screen name="Modo" component={Modo} options={{title:''}}/>
       <Stack.Screen name="Auth" component={Auth} options={{title:''}}/>
       <Stack.Screen name="Password" component={Password} options={{title:''}}/>
       <Stack.Screen name = "Conecta2" component = {Conecta2} options = {{title:''}}/>
       <Stack.Screen name  = "MyProfile" component = {MyProfile} options = {{title:''}}/>
-      <Stack.Screen name = "Feed" component = {Feed} options = {{title:''}}/>  */}
+      <Stack.Screen name = "Carrera" component = {Carrera} options = {{title: ''}}/>
+      <Stack.Screen name = "Feed" component = {Feed} options = {{title:''}}/> 
       <Stack.Screen name = "Conecta" component = {Conecta} options = {{title: ''}}/>
-      
-      
     </Stack.Navigator>
   )
 }

@@ -12,7 +12,6 @@ const Carrera = (props) =>{
     }
 
     function addCarrera() {
-
         newUser.carrera = carreraUsuario;
         console.log(newUser);
     }
@@ -33,7 +32,7 @@ const Carrera = (props) =>{
                     <Text style={styles.txtinf}>Asi aparecera en OsoGuides y no podras cambiarlo</Text>
                 </View>
                 <View>
-                    <TouchableOpacity style={styles.btn} onPress={() => props.navigation.navigate("Sex")}
+                    <TouchableOpacity style={styles.btn} onPress={() => props.navigation.navigate("Modo")}
                     onPressOut = {addCarrera}>
                         <Text style={styles.btntxt}>Continuar</Text>
                     </TouchableOpacity>
