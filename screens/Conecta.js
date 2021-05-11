@@ -79,7 +79,7 @@ const Conecta = (props) =>{
                 </View>
                 <View>
                     <TouchableOpacity onPress={() => props.navigation.navigate("Msj")}>
-                        <Image style={styles.imgpls} source={require('../Images/Huella.png')}/>
+                        <Image style={styles.imgpls} source={require('../Images/Garras.png')}/>
                     </TouchableOpacity>
                 </View>
             </View>
