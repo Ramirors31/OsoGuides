@@ -52,8 +52,8 @@ const Msj = (props) =>{
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <TouchableOpacity onPress={() => props.navigation.navigate("Msj")}>
-                        <Image style={styles.imgpls} source={require('../Images/Huella.png')}/>
+                    <TouchableOpacity onPress={() => props.navigation.navigate("Foro")}>
+                        <Image style={styles.imgpls} source={require('../Images/discusion.png')}/>
                     </TouchableOpacity>
                 </View>
             </View>
