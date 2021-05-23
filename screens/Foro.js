@@ -1,8 +1,28 @@
 import React from 'react';
+import { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
+import { useEffect } from 'react/cjs/react.development';
+import PostCard from '../components/PostCard';
+import firebase from '../database/firebase';
 
 const Foro = (props) =>{
-    return(
+//DECLARAMOS EL ARREGLO DONDE SE GUARDARAN LOS POSTS
+const [posts,setPosts] = useState([])
+//FUNCION QUE CARGA PUBLICACIONES DE LA BASE DE DATOS AL REFRESCAR
+useEffect(() => {
+   /* firebase.db.collection('publicaciones')
+    .get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => posts.push(doc.data()))
+        setPosts(posts.map((post) =>))
+        })*/
+    firebase.db.collection('publicaciones')
+        .onSnapshot((snapshot) => {
+            snapshot.forEach((post) => {
+                setPosts(post.data())
+            })
+        })
+    })
+    return( 
         <ScrollView>
             <View>
                 <Image style={styles.imghead} source={require('../Images/I1.png')}/>
@@ -16,137 +36,11 @@ const Foro = (props) =>{
                         <TextInput style={styles.txtinp} placeholder="Buscar Publicacion"></TextInput>
                     </View>
                     <View>
-                        <TouchableOpacity style={styles.btn} onPress={() => props.navigation.navigate("Foro2")}>
+                        <TouchableOpacity style={styles.btn} onPress={() => props.navigation.navigate("Post")}>
                             <Text style={styles.public}>Publicar</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={styles.publicacion}>
-                <View style={{flexDirection:'row'}}>
-                    <View>
-                        <Image style={styles.imgment} source={require('../Images/ejemploPerfil.jpg')}/>
-                    </View>
-                    <View style={{flexDirection:'column'}}>
-                        <View>
-                            <Text style={styles.txtmensaj}> @NombreUsuario </Text>
-                        </View>
-                        <View>
-                            <Text>@TiempoPublicado</Text>
-                        </View>
-                    </View>
-                </View>
-                <View>
-                    <Text style={styles.txtpubli}>Me podrian decir buenos cursos de programacion</Text>
-                </View>
-                <View style={{flexDirection:'row'}}>
-                    <View>
-                        <TouchableOpacity>
-                            <Image style={styles.imglikedislike} source={require('../Images/like.png')}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                        <TouchableOpacity>
-                            <Image style={styles.imglikedislike} source={require('../Images/Dislike.png')}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                        <TouchableOpacity>
-                            <Image style={styles.imgcomentario} source={require('../Images/comentario.png')}/>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                </View>
-                
-                <View style={styles.publicacion}>
-                <View style={{flexDirection:'row'}}>
-                    <View>
-                        <Image style={styles.imgment} source={require('../Images/sergio.jpg')}/>
-                    </View>
-                    <View style={{flexDirection:'column'}}>
-                        <View>
-                            <Text style={styles.txtmensaj}> @NombreUsuario </Text>
-                        </View>
-                        <View>
-                            <Text>@TiempoPublicado</Text>
-                        </View>
-                    </View>
-                </View>
-                <View>
-                    <Text style={styles.txtpubli}>Alguien que me diga que se necesita para beca de escasos recursos</Text>
-                </View>
-                <View style={{flexDirection:'row'}}>
-                    <View>
-                        <TouchableOpacity>
-                            <Image style={styles.imglikedislike} source={require('../Images/like.png')}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                        <TouchableOpacity>
-                            <Image style={styles.imglikedislike} source={require('../Images/Dislike.png')}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                        <TouchableOpacity>
-                            <Image style={styles.imgcomentario} source={require('../Images/comentario.png')}/>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                </View>
-            
-                <View style={styles.publicacion}>
-                <View style={{flexDirection:'row'}}>
-                    <View>
-                        <Image style={styles.imgment} source={require('../Images/IMG_7702.jpg')}/>
-                    </View>
-                    <View style={{flexDirection:'column'}}>
-                        <View>
-                            <Text style={styles.txtmensaj}> @NombreUsuario </Text>
-                        </View>
-                        <View>
-                            <Text>@TiempoPublicado</Text>
-                        </View>
-                    </View>
-                </View>
-                <View>
-                    <Text style={styles.txtpubli}>Que me pueden decir acerca de los cursos de ingles de la Facultad</Text>
-                </View>
-                <View style={{flexDirection:'row'}}>
-                    <View>
-                        <TouchableOpacity>
-                            <Image style={styles.imglikedislike} source={require('../Images/like.png')}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                        <TouchableOpacity>
-                            <Image style={styles.imglikedislike} source={require('../Images/Dislike.png')}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                        <TouchableOpacity>
-                            <Image style={styles.imgcomentario} source={require('../Images/comentario.png')}/>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                </View>
-            
-                <View style={{flexDirection:'row', alignSelf:'center', marginTop:30}}>
-                <View>
-                    <TouchableOpacity onPress={() => props.navigation.navigate("perfil")}>
-                        <Image style={styles.imgpls} source={require('../Images/perfil.png')}/>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <TouchableOpacity onPress={() => props.navigation.navigate("Conecta")}>
-                        <Image style={styles.imgpls} source={require('../Images/plus.png')}/>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <TouchableOpacity onPress={() => props.navigation.navigate("Msj")}>
-                        <Image style={styles.imgpls} source={require('../Images/Garras.png')}/>
-                    </TouchableOpacity>
-                </View>
-            </View>
-
             </View>
         </ScrollView>
     )

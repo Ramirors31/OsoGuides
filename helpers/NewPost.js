@@ -1,8 +1,9 @@
 
 class Post{
-    constructor (titulo, texto){
+    constructor (titulo, texto,postid){
         this.titulo = titulo;
         this.texto = texto;
+        this.postid = postid;
     }
 }
 

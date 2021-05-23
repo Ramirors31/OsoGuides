@@ -1,34 +1,27 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity,Alert } from 'react-native';
 import TinderCard from 'react-tinder-card';
 import firebase from '../database/firebase'
 
 
 
 const Conecta = (props) =>{
+    const onSwipe = (direction) => {
+        if(direction === "right"){
+            Alert.alert('Una nueva Conexion!!')
+            console.log('Una nueva conexion!!!')
+        }
+    }
+    const [people, setPeople] = useState([])
 
-    const [people, setPeople] = useState([    
-        {
-        name: 'Sergio P.',
-        photo: 'https://scontent.fntr1-1.fna.fbcdn.net/v/t1.6435-9/148177856_3831208780279361_5252309226589604836_n.jpg?_nc_cat=103&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeHu0-Co31iDypZX4uCs9J5XyIU8SRFB7RrIhTxJEUHtGjSr6TEdHDHJOQwgSiUlZts&_nc_ohc=cA0sqxbZw0sAX9gK7go&_nc_ht=scontent.fntr1-1.fna&oh=d76bfcb9323be22f821f59b0ce96df2b&oe=60BFB970'
-
-    },
-    {
-        name: 'Ramiro J.',
-        photo: 'https://scontent.fntr1-1.fna.fbcdn.net/v/t1.6435-9/143135847_10215014611078152_1279290876736855862_n.jpg?_nc_cat=108&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeGKzUbmHkN56-Zv1K0QF8qXZzcRYJD08jRnNxFgkPTyNKI6admuHlePMpsOCOh2xA8&_nc_ohc=UyCyv6M5MEwAX_ixoAy&_nc_ht=scontent.fntr1-1.fna&oh=4e42b562eda1ef6d74d2cb1cab260022&oe=60BFA793'
-    },
-    {
-        name: 'Alexandra O.',
-        photo: 'https://scontent.fntr1-1.fna.fbcdn.net/v/t1.6435-9/33116196_1684558658246962_6491148580282171392_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeEeiXF2SYk7Jj65ka_QhfBFM3aaEaqe63UzdpoRqp7rdTwUdtUaXVUSO51UJI-d3U4&_nc_ohc=XAcqPnDcBZsAX9SMHwj&_nc_ht=scontent.fntr1-1.fna&oh=bce61437b2b6098ace478085596b104d&oe=60BF2480'
-    },
-    {
-        name: 'Jorge',
-        photo: 'https://store-images.s-microsoft.com/image/apps.36764.13817186670444302.148c432a-9fce-4c7d-bf13-8a2bd3a527b3.2a7b94f3-ed66-45b6-aaf3-337c18d442cd'
-    },
-    {
-        name: 'Jesus G.',
-        photo: 'https://scontent.fntr1-1.fna.fbcdn.net/v/t1.18169-9/12294809_1080014958684123_2040497482228496079_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=174925&_nc_eui2=AeF6ztIvnxQ_uQW9dLoN0rEvScoz_WAPVQtJyjP9YA9VC8Jo9mxsmgbov7mpgL7CSdQ&_nc_ohc=K0FGpugM2DoAX-9llgB&_nc_ht=scontent.fntr1-1.fna&oh=190fb71451af523a7218c42390d86d98&oe=60C0C381'
-    }])
+    useEffect(() => {
+        const conectando = firebase.db.collection('usuarios').onSnapshot(snapshot => (
+            setPeople(snapshot.docs.map(doc => doc.data()))
+    ));
+    return () => {
+        conectando();
+    }
+}, [])
 
 
     return(
@@ -48,11 +41,12 @@ const Conecta = (props) =>{
                         </View>
                     </View>
                     {people.map((person) => (
-                    <TinderCard onPress={() => props.navigation.navigate("Perfil")}>
+                    <TinderCard onPress={() => props.navigation.navigate("Perfil")}
+                    onSwipe = {onSwipe}>
 
                     <View>
                         <View>
-                            <Image style={styles.imgcon} source={person.photo}/>
+                            <Image style={styles.imgcon} source={person.profPicture}/>
                         </View>
                         <View>
                             <Text style={styles.txtimg}>{person.name}</Text>
@@ -62,7 +56,8 @@ const Conecta = (props) =>{
                         </View>
                     </View>
                     </TinderCard>
-                    ))}
+                    ))}                    
+
 
             </View>
 

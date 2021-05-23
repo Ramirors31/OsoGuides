@@ -14,13 +14,16 @@ export default function MyProfile(props) {
    /*AUTH USUARIO DE FIREBASE*/
    const user = firebase.userAuth.currentUser;
    /*ID DEL USUARIO ACTUAL EN LA BASE DE DATOS*/
-   const userId = user.uid
+   const userId = user.uid;
    /*FOTO DE PERFIL GUARDADA EN FIREBASE*/
-   const profilePicture = firebase.userAuth.currentUser.photoURL;
+   const [ proPic, setProPic] = useState('');
    /*REFERENCIA A LA BASE DE DATOS*/ 
    const userRef = firebase.db.collection("usuarios")
    /*CARRERA GUARDADA EN PERFIL DE FIREBASE*/
    const [carreer,setCarreer] = useState('');
+   /*Mentor o Aprendiz */
+    const[modo, setModo] = useState('');
+   
 
    /*MANEJO DEL CAMBIO DE DESCRIPCION*/
    const handleChange = (value) => {
@@ -47,9 +50,12 @@ export default function MyProfile(props) {
                const descripcion = documentSnapshot.data().description;
                const namep = documentSnapshot.data().name;
                const carrera = documentSnapshot.data().carreer;
-               setUserName(namep)
-               setUserDesc(descripcion)
-               setCarreer(carrera)
+               const pPicture = documentSnapshot.data().profPicture;
+               setUserName(namep);
+               setUserDesc(descripcion);
+               setCarreer(carrera);
+               setProPic(pPicture);
+               setModo(documentSnapshot.data().mode)
            }
        })
    }
@@ -73,13 +79,16 @@ export default function MyProfile(props) {
         <View style = {styles.container}>
                 <Image style={styles.imghead} source={require('../Images/I1.png')}/>
             <View>
-                <Image style={styles.profileImage} source = {{uri: profilePicture}}/>
+                <Image style={styles.profileImage} source = {proPic}/>
             </View>
             <View>
                 <Text style= {styles.userName}>{userName}.</Text>
             </View>
             <View>
                 <Text style = {styles.informationText}>{carreer}</Text>
+            </View>
+            <View>
+                <Text>{modo}</Text>
             </View>
             <View style = {styles.picturesContainer}>
                {/* <Image style = {styles.userImages} source = {require('../Images/mifoto1.jpg')}/>
