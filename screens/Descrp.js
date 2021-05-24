@@ -25,6 +25,7 @@ const Descrp = (props) =>{
             description: newUser.descripcion,
             carreer: newUser.carrera,
             profPicture: profilePicture,
+            id: userId,
         }
         //INSERT INTO USUARIOS
         firebase.db.collection('usuarios')

@@ -4,6 +4,7 @@ import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, TextInput 
 import { useEffect } from 'react/cjs/react.development';
 import PostCard from '../components/PostCard';
 import firebase from '../database/firebase';
+import TinderCard from 'react-tinder-card';
 
 const Foro = (props) =>{
 //DECLARAMOS EL ARREGLO DONDE SE GUARDARAN LOS POSTS
@@ -22,6 +23,30 @@ useEffect(() => {
             })
         })
     })
+    
+    const [people, setPeople] = useState([])
+
+    useEffect(() => {
+        const conectando = firebase.db.collection('usuarios').onSnapshot(snapshot => (
+            setPeople(snapshot.docs.map(doc => doc.data()))
+    ));
+    return () => {
+        conectando();
+    }
+}, [])
+
+const [publicando, setPublicando] = useState([])
+
+useEffect(() => {
+    const publica = firebase.db.collection('publicaciones').onSnapshot(snapshot =>(
+        setPublicando(snapshot.docs.map(doc => doc.data()))
+    ));
+    return () => {
+        publica();
+    }
+},[])
+
+
     return( 
         <ScrollView>
             <View>
@@ -40,6 +65,52 @@ useEffect(() => {
                             <Text style={styles.public}>Publicar</Text>
                         </TouchableOpacity>
                     </View>
+                </View>
+                <View style={styles.publicacion}>
+                
+                {publicando.map((publicac) => (
+                    <TinderCard preventSwipe = { [ 'left' ,'right','up', 'down' ]}>
+                        <View style={{flexDirection:'row'}}>
+                    <View>
+                        <Image style={styles.imgment} source={require('../Images/ejemploPerfil.jpg')}/>
+                    </View>
+                    <View style={{flexDirection:'column'}}>
+                        <View>
+                            <Text style={styles.txtmensaj}> @Nombreusuario </Text>
+                        </View>
+                        <View>
+                            <Text>@TiempoPublicado</Text>
+                        </View>
+                    </View>
+                </View>
+                        <View>
+                            <View>
+                                <Text style={styles.txtimg}>{publicac.titulo}</Text>
+                            </View>
+                            <View>
+                                <Text style={styles.txtimg}>{publicac.contenido}</Text>
+                            </View>
+                        </View>
+                        <View style={{flexDirection:'row'}}>
+                    <View>
+                        <TouchableOpacity>
+                            <Image style={styles.imglikedislike} source={require('../Images/like.png')}/>
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity>
+                            <Image style={styles.imglikedislike} source={require('../Images/Dislike.png')}/>
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity>
+                            <Image style={styles.imgcomentario} source={require('../Images/comentario.png')}/>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                    </TinderCard>
+                ))}
+                
                 </View>
             </View>
         </ScrollView>
@@ -82,9 +153,10 @@ const styles = StyleSheet.create({
         fontSize:24
     },
     publicacion:{
-        
+        width: '100%',
         marginLeft:5,
-        marginRight:5
+        marginRight:5,
+        marginBottom: '#e1dbda'
     },
     imglikedislike:{
         marginTop:10,

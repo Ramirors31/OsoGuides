@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity,Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity,Alert, Button } from 'react-native';
 import TinderCard from 'react-tinder-card';
 import firebase from '../database/firebase'
 
@@ -40,24 +40,42 @@ const Conecta = (props) =>{
                             </TouchableOpacity>
                         </View>
                     </View>
+                    
                     {people.map((person) => (
-                    <TinderCard onPress={() => props.navigation.navigate("Perfil")}
-                    onSwipe = {onSwipe}>
-
+                 
+                   <TinderCard
+                    onSwipe = {onSwipe}
+                    key = {person.id}
+                    
+                   >
                     <View>
-                        <View>
-                            <Image style={styles.imgcon} source={person.profPicture}/>
-                        </View>
-                        <View>
-                            <Text style={styles.txtimg}>{person.name}</Text>
-                        </View>
-                        <View>
-                            <Text style={styles.txtimg2}>Ingeniero en Tecnologias del Software</Text>
-                        </View>
-                    </View>
-                    </TinderCard>
-                    ))}                    
+                    <TouchableOpacity onPress ={() => props.navigation.navigate("Conecta2", {
+                        cardId: person.id,
+                        cardName: person.name,
+                        cardDesc: person.description,
+                        cardPhoto: person.profPicture,
+                        cardCarreer: person.carreer,
+                        
 
+                    })}>
+                        <View>
+                            <Image style = {styles.imgcon} source={person.profPicture }/>
+                        </View>
+                        <View>
+                            <Text style = {styles.txtimg}>{person.name}</Text>
+                        </View>
+                        <View>
+                            <Text style = {styles.txtimg2}>{person.carreer}</Text>
+                        </View>
+                    </TouchableOpacity>
+                    </View>
+                   
+                    </TinderCard>
+             
+                   
+                    ))}   
+                             
+            
 
             </View>
 

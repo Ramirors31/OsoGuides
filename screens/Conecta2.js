@@ -1,137 +1,154 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react'
+import { View, Text, StyleSheet, ScrollView, Image, TextInput, Button, TouchableOpacity } from 'react-native'
+import * as ImagePicker from 'expo-image-picker';
+import firebase from '../database/firebase';
 
+export default function Conecta2({route}) {
+    const {cardId, cardName, cardPhoto, cardCarreer, cardDesc} = route.params;
+   const [image, setImage] = useState('');
+   /*ESTADO PARA NUEVA DESCRIPCION*/
+   const [descrp, setDescrp] = useState('');
+   /*DESCRIPCION MOSTRADA EN PANTALLA*/
+   const [userDesc, setUserDesc] = useState('');
+   /*NOMBRE DE USUARIO*/
+   const [userName, setUserName] = useState('');
+   /*AUTH USUARIO DE FIREBASE*/
+   const user = firebase.userAuth.currentUser;
+   /*ID DEL USUARIO ACTUAL EN LA BASE DE DATOS*/
+   const userId = user.uid;
+   /*FOTO DE PERFIL GUARDADA EN FIREBASE*/
+   const [ proPic, setProPic] = useState('');
+   /*REFERENCIA A LA BASE DE DATOS*/ 
+   const userRef = firebase.db.collection("usuarios")
+   /*CARRERA GUARDADA EN PERFIL DE FIREBASE*/
+   const [carreer,setCarreer] = useState('');
+   /*Mentor o Aprendiz */
+    const[modo, setModo] = useState('');
 
-const Conecta2 = (props) =>{
-    function goConecta() {
-        props.navigation.navigate('Conecta');
+    const profileId = () => {
+       console.log(JSON.stringify(cardName))
     }
-    return(
-        <ScrollView>
-            <View style={styles.container}>
-                <View>
-                    <Image style={styles.imghead} source={require('../Images/I1.png')}/>
-                </View>
-                <View style={{flexDirection:'row', alignSelf:'center'}}>
-                        <View>
-                            <TouchableOpacity onPress={goConecta}>
-                                <Image style={styles.imgnxt} source={require('../Images/FlechaR.png')}/>
-                            </TouchableOpacity>
-                        </View>
-                        <View>
-                            <Text style={styles.txt}>OsoGuides</Text>
-                        </View>
-                        <View>
-                            <TouchableOpacity onPress={() => props.navigation.navigate("Conecta2")}>
-                                <Image style={styles.imgnxt} source={require('../Images/Flecha.png')}/>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View>
-                        <Image style={styles.imgcon} source={require('../Images/sergio.jpg')}/>
-                    </View>
-                    <View>
-                        <Text style={styles.txtimg}>Ramiro</Text>
-                    </View>
-                    <View>
-                        <Text style={styles.txtimg2}>Ingeniero en Tecnologias del Software</Text>
-                    </View>
+   
+
+   /*MANEJO DEL CAMBIO DE DESCRIPCION*/
+   const handleChange = (value) => {
+       setDescrp(value)
+   }
+   /*ACTUALIZACION EN LA BASE DE DATOS*/
+   const modificarDescripcion = () => {
+       userRef.doc(userId)
+       .update({
+           description:descrp
+       })
+       setUserDesc(descrp);
+
+
+   }
+
+    return (
+        <View style = {styles.container}>
+                <Image style={styles.imghead} source={require('../Images/I1.png')}/>
+            <View>
+                <Image style={styles.profileImage} source = {cardPhoto}/>
             </View>
             <View>
-                <Text style={styles.txtinf}>Nombre de la Persona</Text>
+                <Text style= {styles.userName}>{cardName}</Text>
             </View>
             <View>
-                <Text style={styles.txtinf}>Edad</Text>
+                <Text style = {styles.informationText}>{cardCarreer}</Text>
             </View>
             <View>
-                <Text style={styles.txtinf}>Hobbies</Text>
+                <Text>{modo}</Text>
             </View>
-            <View>
-                <Text style={styles.txtinf}>Unidades de Aprendizaje Destacables</Text>
+
+            <View style = {styles.informationContainer}>
+                <Text style = {styles.informationText}>Sobre mi</Text>
+                <View>
+                    <Text>{cardDesc}</Text>
+                 
+                </View>
+                <Text style = {styles.informationText}>Mis Proyectos</Text>
+                <Button onPress={profileId}>Boton</Button>
+
             </View>
-            <View style={{flexDirection:'row', alignSelf:'center'}}>
-                <View>
-                    <TouchableOpacity onPress={() => props.navigation.navigate("perfil")}>
-                        <Image style={styles.imgpls} source={require('../Images/perfil.png')}/>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <TouchableOpacity onPress={() => props.navigation.navigate("Conecta")}>
-                        <Image style={styles.imgpls} source={require('../Images/plus.png')}/>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <TouchableOpacity onPress={() => props.navigation.navigate("Msj")}>
-                        <Image style={styles.imgpls} source={require('../Images/Huella.png')}/>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            
-        </ScrollView>
+        </View>
     )
 }
 
+
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
+        display: 'flex',
+        flex:1,
+        alignItems: 'center'
+    
     },
-    txt:{
-        color: 'green',
+
+    imghead: {
+        width: '100%',
+        height: 50,
+        marginBottom: 10
+
+    },
+
+    profileImage: {
+        height: 200,
+        width: 200,
+        borderRadius: 100,
+    },
+
+    userName: {
+        marginTop: 10,
+        fontSize: 35,
         fontWeight: 'bold',
-        marginTop: 20,
-        fontSize: 20,
-        textAlign: "center"
     },
-    imgcon:{
-        
-        alignSelf:'center',
-        borderRadius: 25,
-        height: 520,
-        width: 380,
-        marginTop: 20
-    },
-    txtimg:{
-        alignSelf:'center',
-        marginTop: -80,
-        color: 'white',
-        fontSize: 28
-    },
-    txtimg2:{
-        alignSelf:'center',
-        marginTop: -50,
-        color: 'white',
+    informationText: {
+        marginTop: 5,
         fontSize: 20
     },
-    imghead:{
-        height: 50,
-        width: 500,
-    },
-    imgperf:{
-        height:80,
-        width:80,
-        marginTop:15,
-    },
-    imgpls:{
-        height:80,
-        width:80,
-        marginTop:15,
-        marginRight:30,
-        marginLeft:30
-    },
-    imgmsj:{
-        height:100,
-        width:100,
-        marginTop:15,
-    },
-    txtinf:{
-        fontSize:20,
 
-    }, 
-    imgnxt:{
-        marginTop:20,
-        height:30,
-        width:30
+    picturesContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: 80,
+        flexDirection: 'row',
+        
+
+    },
+
+    userImages: {
+        width:70,
+        height: 70,
+        borderRadius: 100,
+        margin:3
+    },
+
+    photoBtn: {
+        width:70,
+        height: 70,
+        borderRadius: 100,
+        borderColor: 'black',
+        display: 'flex',
+        borderWidth: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    
+    informationContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        alignItems: 'flex-start',
+        marginLeft: 10
+    },
+    txtInput: {
+        height: 40,
+        padding: 5,
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        
     }
 })
 
-export default Conecta2
