@@ -75,6 +75,7 @@ useEffect(() => {
             <TouchableOpacity onPress={() => props.navigation.navigate("Foro2", {
                                 cardId: publicac.id,
                                 cardTitulo: publicac.titulo,
+<<<<<<< HEAD
                                 cardContenido: publicac.contenido,
                                 cardPhoto: publicac.authorPhoto,
                                 cardAuthor: publicac.author
@@ -82,6 +83,13 @@ useEffect(() => {
             <View style={{flexDirection:'row'}}>
                 <View>
                     <Image style={styles.imgment} source={publicac.authorPhoto}/>
+=======
+                                cardContenido: publicac.contenido
+                                })}>
+            <View style={{flexDirection:'row'}}>
+                <View>
+                    <Image style={styles.imgment} source={require('../Images/ejemploPerfil.jpg')}/>
+>>>>>>> b5f9e46077d20d8022060ece229823237c1a724c
                 </View>
                     <View style={{flexDirection:'column'}}>
                         <View>
@@ -90,11 +98,16 @@ useEffect(() => {
                     </View>
             </View>
              <View>
+<<<<<<< HEAD
                 <Text style={styles.txtTitulo}>{publicac.titulo}</Text>
+=======
+                <Text style={styles.txtimg}>{publicac.titulo}</Text>
+>>>>>>> b5f9e46077d20d8022060ece229823237c1a724c
             </View>
             <View>
                 <Text style={styles.txtimg}>{publicac.contenido}</Text>
             </View>
+<<<<<<< HEAD
             </TouchableOpacity>
         </View>
     </TinderCard>
@@ -116,6 +129,30 @@ useEffect(() => {
                     </TouchableOpacity>
                 </View>
             </View>
+=======
+            <View style={{flexDirection:'row'}}>
+                <View>
+                    <TouchableOpacity>
+                        <Image style={styles.imglikedislike} source={require('../Images/like.png')}/>
+                    </TouchableOpacity>
+                </View>
+            <View>
+                        <TouchableOpacity>
+                            <Image style={styles.imglikedislike} source={require('../Images/Dislike.png')}/>
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity>
+                            <Image style={styles.imgcomentario} source={require('../Images/comentario.png')} onPress={() => props.navigation.navigate("Foro2")}/>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        </View>
+    </TinderCard>
+                ))}
+
+>>>>>>> b5f9e46077d20d8022060ece229823237c1a724c
         </ScrollView>
     )
 }
