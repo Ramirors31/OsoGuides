@@ -55,8 +55,7 @@ const Conecta = (props) =>{
                         cardDesc: person.description,
                         cardPhoto: person.profPicture,
                         cardCarreer: person.carreer,
-                        
-
+                        cardMode: person.mode
                     })}>
                         <View>
                             <Image style = {styles.imgcon} source={person.profPicture }/>

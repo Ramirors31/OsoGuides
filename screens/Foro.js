@@ -69,7 +69,7 @@ useEffect(() => {
                 <View style={styles.publicacion}>
                 
                 {publicando.map((publicac) => (
-                    <TinderCard preventSwipe = { [ 'left' ,'right','up', 'down' ]}>
+                    <TinderCard preventSwipe = { [ 'right' ,'left','down', 'up' ]}>
                         <View style={{flexDirection:'row'}}>
                     <View>
                         <Image style={styles.imgment} source={require('../Images/ejemploPerfil.jpg')}/>
@@ -153,10 +153,9 @@ const styles = StyleSheet.create({
         fontSize:24
     },
     publicacion:{
-        width: '100%',
+        
         marginLeft:5,
-        marginRight:5,
-        marginBottom: '#e1dbda'
+        marginRight:5
     },
     imglikedislike:{
         marginTop:10,

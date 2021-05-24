@@ -1,49 +1,9 @@
 import React, {useState} from 'react'
 import { View, Text, StyleSheet, ScrollView, Image, TextInput, Button, TouchableOpacity } from 'react-native'
-import * as ImagePicker from 'expo-image-picker';
 import firebase from '../database/firebase';
 
 export default function Conecta2({route}) {
-    const {cardId, cardName, cardPhoto, cardCarreer, cardDesc} = route.params;
-   const [image, setImage] = useState('');
-   /*ESTADO PARA NUEVA DESCRIPCION*/
-   const [descrp, setDescrp] = useState('');
-   /*DESCRIPCION MOSTRADA EN PANTALLA*/
-   const [userDesc, setUserDesc] = useState('');
-   /*NOMBRE DE USUARIO*/
-   const [userName, setUserName] = useState('');
-   /*AUTH USUARIO DE FIREBASE*/
-   const user = firebase.userAuth.currentUser;
-   /*ID DEL USUARIO ACTUAL EN LA BASE DE DATOS*/
-   const userId = user.uid;
-   /*FOTO DE PERFIL GUARDADA EN FIREBASE*/
-   const [ proPic, setProPic] = useState('');
-   /*REFERENCIA A LA BASE DE DATOS*/ 
-   const userRef = firebase.db.collection("usuarios")
-   /*CARRERA GUARDADA EN PERFIL DE FIREBASE*/
-   const [carreer,setCarreer] = useState('');
-   /*Mentor o Aprendiz */
-    const[modo, setModo] = useState('');
-
-    const profileId = () => {
-       console.log(JSON.stringify(cardName))
-    }
-   
-
-   /*MANEJO DEL CAMBIO DE DESCRIPCION*/
-   const handleChange = (value) => {
-       setDescrp(value)
-   }
-   /*ACTUALIZACION EN LA BASE DE DATOS*/
-   const modificarDescripcion = () => {
-       userRef.doc(userId)
-       .update({
-           description:descrp
-       })
-       setUserDesc(descrp);
-
-
-   }
+    const {cardId, cardName, cardPhoto, cardCarreer, cardDesc, cardMode} = route.params;
 
     return (
         <View style = {styles.container}>
@@ -58,7 +18,7 @@ export default function Conecta2({route}) {
                 <Text style = {styles.informationText}>{cardCarreer}</Text>
             </View>
             <View>
-                <Text>{modo}</Text>
+                <Text>{cardMode}</Text>
             </View>
 
             <View style = {styles.informationContainer}>
@@ -68,7 +28,7 @@ export default function Conecta2({route}) {
                  
                 </View>
                 <Text style = {styles.informationText}>Mis Proyectos</Text>
-                <Button onPress={profileId}>Boton</Button>
+                
 
             </View>
         </View>
