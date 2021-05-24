@@ -4,6 +4,7 @@ import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, TextInput 
 import { useEffect } from 'react/cjs/react.development';
 import PostCard from '../components/PostCard';
 import firebase from '../database/firebase';
+import TinderCard from 'react-tinder-card';
 
 const Foro = (props) =>{
 //DECLARAMOS EL ARREGLO DONDE SE GUARDARAN LOS POSTS
@@ -23,22 +24,27 @@ useEffect(() => {
         })
     })
     
-const [publica,setPublica] = useState([])
+    const [people, setPeople] = useState([])
 
     useEffect(() => {
+        const conectando = firebase.db.collection('usuarios').onSnapshot(snapshot => (
+            setPeople(snapshot.docs.map(doc => doc.data()))
+    ));
+    return () => {
+        conectando();
+    }
+}, [])
 
-        const obtenerDatos = async () => {
-            try {
-                const data = await firebase.db.collection('publicaciones').get()
-                const arrayData = data.docs.map(doc => ({id: doc.id, ...doc.data()}))
-                console.log(arrayData)      
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        obtenerDatos()
-    
-    }, [])
+const [publicando, setPublicando] = useState([])
+
+useEffect(() => {
+    const publica = firebase.db.collection('publicaciones').onSnapshot(snapshot =>(
+        setPublicando(snapshot.docs.map(doc => doc.data()))
+    ));
+    return () => {
+        publica();
+    }
+},[])
 
 
     return( 
@@ -61,23 +67,31 @@ const [publica,setPublica] = useState([])
                     </View>
                 </View>
                 <View style={styles.publicacion}>
-                <View style={{flexDirection:'row'}}>
+                
+                {publicando.map((publicac) => (
+                    <TinderCard preventSwipe = { [ 'right' ,'left','down', 'up' ]}>
+                        <View style={{flexDirection:'row'}}>
                     <View>
                         <Image style={styles.imgment} source={require('../Images/ejemploPerfil.jpg')}/>
                     </View>
                     <View style={{flexDirection:'column'}}>
                         <View>
-                            <Text style={styles.txtmensaj}> @NombreUsuario </Text>
+                            <Text style={styles.txtmensaj}> @Nombreusuario </Text>
                         </View>
                         <View>
                             <Text>@TiempoPublicado</Text>
                         </View>
                     </View>
                 </View>
-                <View>
-                    <Text style={styles.txtpubli}>publica</Text>
-                </View>
-                <View style={{flexDirection:'row'}}>
+                        <View>
+                            <View>
+                                <Text style={styles.txtimg}>{publicac.titulo}</Text>
+                            </View>
+                            <View>
+                                <Text style={styles.txtimg}>{publicac.contenido}</Text>
+                            </View>
+                        </View>
+                        <View style={{flexDirection:'row'}}>
                     <View>
                         <TouchableOpacity>
                             <Image style={styles.imglikedislike} source={require('../Images/like.png')}/>
@@ -94,6 +108,9 @@ const [publica,setPublica] = useState([])
                         </TouchableOpacity>
                     </View>
                 </View>
+                    </TinderCard>
+                ))}
+                
                 </View>
             </View>
         </ScrollView>
