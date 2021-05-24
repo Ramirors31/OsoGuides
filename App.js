@@ -27,6 +27,7 @@ import Feed from './screens/Feed';
 import Carrera from './screens/Carrera';
 import Foro from './screens/Foro';
 import Post from './screens/Post';
+import Foro2 from './screens/Foro2'
 
 
 
@@ -47,14 +48,14 @@ function Mystack(){
       <Stack.Screen name="Modo" component={Modo} options={{title:''}}/>
       <Stack.Screen name="Auth" component={Auth} options={{title:''}}/>
       <Stack.Screen name="Password" component={Password} options={{title:''}}/>
-      <Stack.Screen name  = "MyProfile" component = {MyProfile} options = {{title:''}}/>
+      <Stack.Screen name  = "MyProfile" component = {MyProfile} options = {{title:''}}/> 
       <Stack.Screen name = "Carrera" component = {Carrera} options = {{title: ''}}/>
-      <Stack.Screen name = "Feed" component = {Feed} options = {{title:''}}/> 
-      <Stack.Screen name = "Foro" component = {Foro} options={{title:''}}/> 
+      <Stack.Screen name = "Feed" component = {Feed} options = {{title:''}}/>  
       <Stack.Screen name = "Conecta" component = {Conecta} options = {{title: ''}}/> 
       <Stack.Screen name = "Conecta2" component = {Conecta2} options = {{title:''}}/>
-      <Stack.Screen name = "Post" component = {Post} options={{title:''}}/> 
-     
+      <Stack.Screen name = "Post" component = {Post} options={{title:''}}/>
+      <Stack.Screen name = "Foro2" component = {Foro2} options = {{title: ''}}/>
+      <Stack.Screen name = "Foro" component = {Foro} options={{title:''}}/> 
     </Stack.Navigator>
   )
 }

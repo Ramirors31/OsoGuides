@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         padding:1,
         borderRadius: 15,
         paddingHorizontal: 75,
-        marginTop: -40
+        marginTop: 20
     },
     imghead:{
         height: 50,
