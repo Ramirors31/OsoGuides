@@ -22,6 +22,25 @@ useEffect(() => {
             })
         })
     })
+    
+const [publica,setPublica] = useState([])
+
+    useEffect(() => {
+
+        const obtenerDatos = async () => {
+            try {
+                const data = await firebase.db.collection('publicaciones').get()
+                const arrayData = data.docs.map(doc => ({id: doc.id, ...doc.data()}))
+                console.log(arrayData)      
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        obtenerDatos()
+    
+    }, [])
+
+
     return( 
         <ScrollView>
             <View>
@@ -40,6 +59,41 @@ useEffect(() => {
                             <Text style={styles.public}>Publicar</Text>
                         </TouchableOpacity>
                     </View>
+                </View>
+                <View style={styles.publicacion}>
+                <View style={{flexDirection:'row'}}>
+                    <View>
+                        <Image style={styles.imgment} source={require('../Images/ejemploPerfil.jpg')}/>
+                    </View>
+                    <View style={{flexDirection:'column'}}>
+                        <View>
+                            <Text style={styles.txtmensaj}> @NombreUsuario </Text>
+                        </View>
+                        <View>
+                            <Text>@TiempoPublicado</Text>
+                        </View>
+                    </View>
+                </View>
+                <View>
+                    <Text style={styles.txtpubli}>publica</Text>
+                </View>
+                <View style={{flexDirection:'row'}}>
+                    <View>
+                        <TouchableOpacity>
+                            <Image style={styles.imglikedislike} source={require('../Images/like.png')}/>
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity>
+                            <Image style={styles.imglikedislike} source={require('../Images/Dislike.png')}/>
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity>
+                            <Image style={styles.imgcomentario} source={require('../Images/comentario.png')}/>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 </View>
             </View>
         </ScrollView>
