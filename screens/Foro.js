@@ -66,14 +66,23 @@ useEffect(() => {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={styles.publicacion}>
-                
-                {publicando.map((publicac) => (
-                    <TinderCard preventSwipe = { [ 'right' ,'left','down', 'up' ]}>
-                        <View style={{flexDirection:'row'}}>
-                    <View>
-                        <Image style={styles.imgment} source={require('../Images/ejemploPerfil.jpg')}/>
-                    </View>
+            </View>
+
+    {publicando.map((publicac) => (
+    <TinderCard 
+    preventSwipe = {[ 'right' ,'left','down', 'up' ]} 
+    key={publicac.id}>
+
+        <View>
+            <TouchableOpacity onPress={() => props.navigation.navigate("Foro2", {
+                                cardId: publicac.id,
+                                cardTitulo: publicac.titulo,
+                                cardContenido: publicac.contenido
+                                })}>
+            <View style={{flexDirection:'row'}}>
+                <View>
+                    <Image style={styles.imgment} source={require('../Images/ejemploPerfil.jpg')}/>
+                </View>
                     <View style={{flexDirection:'column'}}>
                         <View>
                             <Text style={styles.txtmensaj}> @Nombreusuario </Text>
@@ -82,37 +91,35 @@ useEffect(() => {
                             <Text>@TiempoPublicado</Text>
                         </View>
                     </View>
+            </View>
+             <View>
+                <Text style={styles.txtimg}>{publicac.titulo}</Text>
+            </View>
+            <View>
+                <Text style={styles.txtimg}>{publicac.contenido}</Text>
+            </View>
+            <View style={{flexDirection:'row'}}>
+                <View>
+                    <TouchableOpacity>
+                        <Image style={styles.imglikedislike} source={require('../Images/like.png')}/>
+                    </TouchableOpacity>
                 </View>
-                        <View>
-                            <View>
-                                <Text style={styles.txtimg}>{publicac.titulo}</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.txtimg}>{publicac.contenido}</Text>
-                            </View>
-                        </View>
-                        <View style={{flexDirection:'row'}}>
-                    <View>
-                        <TouchableOpacity>
-                            <Image style={styles.imglikedislike} source={require('../Images/like.png')}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
+            <View>
                         <TouchableOpacity>
                             <Image style={styles.imglikedislike} source={require('../Images/Dislike.png')}/>
                         </TouchableOpacity>
                     </View>
                     <View>
                         <TouchableOpacity>
-                            <Image style={styles.imgcomentario} source={require('../Images/comentario.png')}/>
+                            <Image style={styles.imgcomentario} source={require('../Images/comentario.png')} onPress={() => props.navigation.navigate("Foro2")}/>
                         </TouchableOpacity>
                     </View>
                 </View>
-                    </TinderCard>
+            </TouchableOpacity>
+        </View>
+    </TinderCard>
                 ))}
-                
-                </View>
-            </View>
+
         </ScrollView>
     )
 }
